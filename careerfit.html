@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIRRU | 이력서·자소서·포트폴리오 첨삭</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple:     #7C3AED;
+      --purple-mid: #8B5CF6;
+      --purple-bg:  #F5F3FF;
+      --purple-bd:  #DDD6FE;
+      --dark:       #111827;
+      --mid:        #374151;
+      --gray:       #6B7280;
+      --border:     #E5E7EB;
+      --light:      #F9FAFB;
+      --white:      #FFFFFF;
+      --kakao:      #FEE500;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans KR', sans-serif; color: var(--dark); line-height: 1.6; background: var(--white); }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(10,10,20,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      padding: 0 6%; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo-wrap { display: flex; flex-direction: column; gap: 1px; text-decoration: none; }
+    .logo-main { font-size: 20px; font-weight: 900; letter-spacing: 3px; color: white; }
+    .logo-main span { color: var(--purple-mid); }
+    .logo-sub { font-size: 10px; font-weight: 500; color: #6B7280; letter-spacing: .3px; }
+    .nav-cta {
+      background: var(--purple); color: white; border: none; border-radius: 8px;
+      padding: 10px 22px; font-size: 14px; font-weight: 700;
+      cursor: pointer; text-decoration: none; font-family: inherit; transition: background .2s;
+    }
+    .nav-cta:hover { background: #6D28D9; }
+
+    /* ── HERO ── */
+    .hero {
+      background: #0A0A14;
+      padding: 96px 6% 88px;
+      position: relative; overflow: hidden;
+    }
+    /* purple glow blobs */
+    .hero::before {
+      content: ''; position: absolute; top: -80px; right: 5%;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -120px; left: -60px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,92,246,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-wrap {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 380px;
+      gap: 60px; align-items: center; position: relative; z-index: 1;
+    }
+    .hero-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 20px; letter-spacing: .3px;
+    }
+    .badge-purple { background: rgba(124,58,237,.2); color: #A78BFA; border: 1px solid rgba(124,58,237,.4); }
+    .badge-green  { background: rgba(5,150,105,.2); color: #34D399; border: 1px solid rgba(5,150,105,.4); }
+
+    .hero h1 {
+      font-size: 62px; font-weight: 900;
+      line-height: 1.12; letter-spacing: -2.5px;
+      color: white; margin-bottom: 28px;
+    }
+    .hero h1 .line2 {
+      display: block;
+      background: linear-gradient(90deg, #A78BFA, #7C3AED, #C4B5FD);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero h1 .highlight {
+      position: relative; display: inline-block;
+      color: white; -webkit-text-fill-color: white;
+    }
+    .hero h1 .highlight::before {
+      content: '';
+      position: absolute; left: -4px; right: -4px; top: 4px; bottom: 0;
+      background: var(--purple); border-radius: 6px; z-index: -1;
+      transform: skew(-2deg);
+    }
+    .hero-sub {
+      font-size: 17px; color: #9CA3AF;
+      line-height: 1.8; margin-bottom: 40px;
+    }
+    .hero-sub strong { color: #E5E7EB; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-kakao {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--kakao); color: #3C1E1E;
+      padding: 15px 28px; border-radius: 10px;
+      font-size: 15px; font-weight: 700; text-decoration: none; transition: filter .2s;
+    }
+    .btn-kakao:hover { filter: brightness(.95); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.07); color: white;
+      border: 1.5px solid rgba(255,255,255,.2);
+      padding: 15px 28px; border-radius: 10px;
+      font-size: 15px; font-weight: 600; text-decoration: none; transition: background .2s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,.12); }
+
+    /* hero stat cards */
+    .hero-cards { display: flex; flex-direction: column; gap: 14px; }
+    .hcard {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px; padding: 20px 24px;
+    }
+    .hcard-row { display: flex; gap: 14px; }
+    .hcard-row .hcard { flex: 1; }
+    .hcard-num { font-size: 34px; font-weight: 900; color: #A78BFA; letter-spacing: -1.2px; }
+    .hcard-label { font-size: 13px; color: #9CA3AF; margin-top: 2px; }
+    .ctags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .ctag { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; color: #D1D5DB; }
+
+    /* ── LECTURE LINE ── */
+    .lecture-line {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 32px;
+    }
+    .lecture-label {
+      font-size: 11px; font-weight: 700; color: #6B7280; letter-spacing: 1px; text-transform: uppercase; flex-shrink: 0;
+    }
+    .lecture-dot { color: #4B5563; font-size: 10px; }
+    .lecture-uni { font-size: 13px; font-weight: 600; color: #9CA3AF; }
+
+    /* ── SECTION BASE ── */
+    .sec { padding: 88px 6%; }
+    .sec-light { background: var(--light); }
+    .sec-dark { background: var(--dark); }
+    .sec-purple { background: var(--purple-bg); }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    .sec-tag { font-size: 11px; font-weight: 800; color: var(--purple); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 12px; }
+    .sec-title { font-size: 34px; font-weight: 900; letter-spacing: -1.2px; margin-bottom: 14px; }
+    .sec-sub { font-size: 16px; color: var(--gray); margin-bottom: 48px; }
+
+    /* ── FOR WHO ── */
+    .who-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .who-card { background: white; border-radius: 16px; padding: 30px 26px; border-left: 4px solid var(--purple); }
+    .who-icon { font-size: 30px; margin-bottom: 14px; }
+    .who-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .who-card p { font-size: 14px; color: var(--gray); line-height: 1.65; }
+
+    /* ── PRICING ── */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-bottom: 28px; }
+    .pcard {
+      background: white; border: 2px solid var(--border); border-radius: 22px;
+      padding: 34px 28px; position: relative; transition: transform .2s, border-color .2s;
+    }
+    .pcard:hover { transform: translateY(-5px); border-color: var(--purple-bd); }
+    .pcard.hot { border-color: var(--purple); background: var(--purple-bg); }
+    .hot-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--purple); color: white;
+      font-size: 11px; font-weight: 800; padding: 4px 18px; border-radius: 20px;
+      white-space: nowrap; letter-spacing: .5px;
+    }
+    .p-tier { font-size: 11px; font-weight: 800; color: var(--purple); letter-spacing: 1.5px; margin-bottom: 6px; }
+    .p-name { font-size: 22px; font-weight: 800; margin-bottom: 18px; }
+    .p-price { font-size: 38px; font-weight: 900; letter-spacing: -1.5px; margin-bottom: 4px; }
+    .p-price sup { font-size: 18px; font-weight: 600; vertical-align: super; }
+    .p-range { font-size: 13px; color: var(--gray); margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+    .p-feats { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .p-feats li { font-size: 14px; display: flex; align-items: flex-start; gap: 8px; }
+    .p-feats li::before { content: '✓'; color: var(--purple); font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+    .p-btn {
+      display: block; text-align: center; padding: 13px; border-radius: 10px;
+      font-size: 14px; font-weight: 700; text-decoration: none; transition: background .2s, color .2s;
+    }
+    .pcard.hot .p-btn { background: var(--purple); color: white; }
+    .pcard:not(.hot) .p-btn { background: transparent; border: 2px solid var(--purple); color: var(--purple); }
+    .pcard:not(.hot) .p-btn:hover { background: var(--purple); color: white; }
+    .delivery-note { display: inline-flex; align-items: center; gap: 5px; margin-top: 12px; font-size: 12px; font-weight: 700; color: #059669; }
+    .ent-card {
+      background: var(--dark); color: white; border-radius: 20px;
+      padding: 38px 44px; display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .ent-card h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .ent-card p { font-size: 14px; color: #9CA3AF; }
+    .ent-btn {
+      background: white; color: var(--dark); padding: 15px 36px; border-radius: 10px;
+      font-size: 15px; font-weight: 700; text-decoration: none; white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ── PROCESS ── */
+    .process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+    .proc-card { background: white; border-radius: 16px; padding: 28px 22px; }
+    .proc-num {
+      font-size: 11px; font-weight: 800; color: var(--purple); background: var(--purple-bg);
+      display: inline-block; padding: 4px 12px; border-radius: 20px; letter-spacing: 1px; margin-bottom: 18px;
+    }
+    .proc-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+    .proc-card p { font-size: 13px; color: var(--gray); line-height: 1.65; }
+
+    /* ── EXPERT ── */
+    .expert-wrap { display: grid; grid-template-columns: 280px 1fr; gap: 64px; align-items: start; }
+    .photo-wrap { position: relative; }
+    .photo-wrap img {
+      width: 100%; border-radius: 20px;
+      object-fit: cover; display: block;
+      box-shadow: 0 20px 60px rgba(124,58,237,.2);
+    }
+    .photo-wrap .photo-badge {
+      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+      background: var(--purple); color: white;
+      font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 20px;
+      white-space: nowrap;
+    }
+    .exp-name { font-size: 30px; font-weight: 900; margin-bottom: 4px; }
+    .exp-title { font-size: 15px; color: var(--purple); font-weight: 600; margin-bottom: 28px; }
+    .exp-items { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+    .exp-item { display: flex; gap: 14px; align-items: flex-start; }
+    .exp-icon { width: 38px; height: 38px; background: var(--purple-bg); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+    .exp-item h4 { font-size: 13px; font-weight: 700; color: var(--gray); margin-bottom: 3px; }
+    .exp-item p { font-size: 15px; font-weight: 500; }
+    .uni-bar {
+      background: var(--dark); border-radius: 16px; padding: 22px 24px;
+    }
+    .uni-bar-label { font-size: 11px; font-weight: 800; color: #A78BFA; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; display: block; }
+    .uni-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .uni-tag {
+      font-size: 13px; font-weight: 700; color: #E5E7EB;
+      padding: 6px 16px; border-radius: 8px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(167,139,250,.25);
+    }
+
+    /* ── REVIEWS ── */
+    .rev-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+    .rev-card { background: white; border-radius: 16px; padding: 26px; border-top: 3px solid var(--purple-bg); }
+    .rev-stars { color: #F59E0B; font-size: 14px; margin-bottom: 12px; }
+    .rev-text { font-size: 14px; line-height: 1.8; margin-bottom: 18px; color: var(--mid); }
+    .rev-meta { font-size: 12px; color: var(--gray); display: flex; align-items: center; gap: 8px; }
+    .rev-badge { background: var(--purple-bg); color: var(--purple); font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 4px; }
+
+    /* ── CONTACT ── */
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .contact-desc { font-size: 16px; color: var(--mid); margin-bottom: 28px; line-height: 1.7; }
+    .cform { display: flex; flex-direction: column; gap: 16px; }
+    .fg { display: flex; flex-direction: column; gap: 6px; }
+    .fg label { font-size: 13px; font-weight: 700; }
+    .fg input, .fg textarea, .fg select {
+      border: 1.5px solid var(--border); border-radius: 10px;
+      padding: 12px 16px; font-size: 14px; font-family: inherit;
+      background: white; outline: none; transition: border-color .2s;
+    }
+    .fg input:focus, .fg textarea:focus, .fg select:focus { border-color: var(--purple); }
+    .fg textarea { resize: vertical; min-height: 120px; }
+    .f-submit {
+      background: var(--purple); color: white; border: none; border-radius: 10px;
+      padding: 15px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; transition: background .2s;
+    }
+    .f-submit:hover { background: #6D28D9; }
+    .kakao-box { background: var(--kakao); border-radius: 24px; padding: 44px 36px; text-align: center; }
+    .kakao-box .k-emoji { font-size: 44px; margin-bottom: 16px; }
+    .kakao-box h3 { font-size: 22px; font-weight: 900; margin-bottom: 12px; line-height: 1.4; }
+    .kakao-box p { font-size: 14px; color: #4B5563; margin-bottom: 28px; line-height: 1.65; }
+    .k-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #3C1E1E; color: white; padding: 16px 34px; border-radius: 12px;
+      font-size: 15px; font-weight: 700; text-decoration: none;
+    }
+    .k-btn:hover { background: #1A0A0A; }
+
+    /* ── FOOTER ── */
+    footer { background: #0A0A14; color: #4B5563; padding: 44px 6%; text-align: center; font-size: 13px; }
+    footer strong { color: #9CA3AF; }
+    footer a { color: #7C3AED; text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .pricing-grid { grid-template-columns: repeat(2,1fr); }
+      .process-grid { grid-template-columns: repeat(2,1fr); }
+      .hero h1 { font-size: 50px; }
+    }
+    @media (max-width: 768px) {
+      .hero-wrap { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 38px; letter-spacing: -1.5px; }
+      .hero-cards { flex-direction: row; flex-wrap: wrap; }
+      .hero-cards .hcard { flex: 1; min-width: 140px; }
+.who-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+      .expert-wrap { grid-template-columns: 1fr; }
+      .photo-wrap { max-width: 260px; }
+      .rev-grid { grid-template-columns: 1fr; }
+      .contact-wrap { grid-template-columns: 1fr; }
+      .ent-card { flex-direction: column; text-align: center; }
+      .sec-title { font-size: 26px; }
+      .trust-item { padding: 6px 12px; font-size: 13px; }
+    }
+    @media (max-width: 480px) {
+      nav { padding: 0 4%; }
+      .sec { padding: 64px 4%; }
+      .hero { padding: 64px 4%; }
+      .trust-bar { padding: 16px 4%; }
+      .hero h1 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#" class="logo-wrap">
+    <div class="logo-main"><span>M</span>IRRU</div>
+    <div class="logo-sub">10년차 현직 마케터 · 면접관 자소서 첨삭</div>
+  </a>
+  <a href="https://open.kakao.com/o/s46uGEIh" target="_blank" class="nav-cta">첨삭 신청하기</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-wrap">
+    <div>
+      <div class="hero-badges">
+        <span class="badge badge-purple">현직 면접관 직접 첨삭</span>
+        <span class="badge badge-green">⚡ 당일 첨삭 가능</span>
+      </div>
+      <h1>
+        서류에서 탈락한다면<br>
+        <span class="line2">이유가 있습니다</span>
+      </h1>
+      <p class="hero-sub">
+        이력서, 자기소개서, 포트폴리오 —<br>
+        <strong>10년차 현직 마케터이자 면접관</strong>이 직접 봐드립니다.
+      </p>
+      <div class="hero-btns">
+        <a href="https://open.kakao.com/o/s46uGEIh" target="_blank" class="btn-kakao">💬 카카오톡으로 신청</a>
+        <a href="#pricing" class="btn-outline">요금 확인 →</a>
+      </div>
+      <div class="lecture-line">
+        <span class="lecture-label">출강</span>
+        <span class="lecture-uni">한양대</span><span class="lecture-dot">·</span>
+        <span class="lecture-uni">동국대</span><span class="lecture-dot">·</span>
+        <span class="lecture-uni">서강대</span><span class="lecture-dot">·</span>
+        <span class="lecture-uni">서울과기대</span><span class="lecture-dot">·</span>
+        <span class="lecture-uni">강원대</span>
+      </div>
+    </div>
+    <div class="hero-cards">
+      <div class="hcard">
+        <div class="hcard-num">162건+</div>
+        <div class="hcard-label">누적 첨삭 완료</div>
+      </div>
+      <div class="hcard-row">
+        <div class="hcard">
+          <div class="hcard-num">100%</div>
+          <div class="hcard-label">크몽 만족도</div>
+        </div>
+        <div class="hcard">
+          <div class="hcard-num">5곳</div>
+          <div class="hcard-label">대학 강의</div>
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-label" style="font-size:12px;font-weight:700;color:#9CA3AF;margin-bottom:8px;">합격 기업</div>
+        <div class="ctags">
+          <span class="ctag">현대자동차</span>
+          <span class="ctag">카카오페이</span>
+          <span class="ctag">APR</span>
+          <span class="ctag">외 다수</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── FOR WHO ── -->
+<section class="sec sec-light">
+  <div class="wrap">
+    <div class="sec-tag">WHO WE HELP</div>
+    <h2 class="sec-title">이런 분들께 추천드려요</h2>
+    <div class="who-grid">
+      <div class="who-card">
+        <div class="who-icon">📄</div>
+        <h3>취업 준비생</h3>
+        <p>이력서·자소서를 처음 쓰거나, 지원할 때마다 서류에서 탈락하는 분</p>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">🔄</div>
+        <h3>이직 준비 직장인</h3>
+        <p>경력 기술서와 포트폴리오를 어떻게 정리해야 할지 막막한 직장인</p>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">🏫</div>
+        <h3>취업 교육 담당자</h3>
+        <p>대학·공공기관에서 이력서 작성법, 취업 전략 특강 강사를 섭외하려는 분</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ── -->
+<section class="sec" id="pricing">
+  <div class="wrap">
+    <div class="sec-tag">PRICING</div>
+    <h2 class="sec-title">첨삭 상품 안내</h2>
+    <p class="sec-sub">필요한 분량에 맞게 선택하세요. 모든 상품은 1:1 맞춤 피드백으로 진행됩니다.</p>
+    <div class="pricing-grid">
+      <div class="pcard">
+        <div class="p-tier">STANDARD</div>
+        <div class="p-name">스탠다드</div>
+        <div class="p-price"><sup>₩</sup>19,000</div>
+        <div class="p-range">공백 포함 1,000자 이내</div>
+        <ul class="p-feats">
+          <li>이력서 또는 자소서 단일 항목 첨삭</li>
+          <li>문장·구조 개선 피드백</li>
+          <li>당일 납품 가능</li>
+        </ul>
+        <a href="https://open.kakao.com/o/s46uGEIh" target="_blank" class="p-btn">신청하기</a>
+        <div class="delivery-note">⚡ 당일 첨삭 가능</div>
+      </div>
+      <div class="pcard hot">
+        <div class="hot-badge">가장 많이 선택</div>
+        <div class="p-tier">DELUXE</div>
+        <div class="p-name">디럭스</div>
+        <div class="p-price"><sup>₩</sup>69,000</div>
+        <div class="p-range">공백 포함 5,000자 이내</div>
+        <ul class="p-feats">
+          <li>자소서 전체 첨삭</li>
+          <li>핵심 키워드 발굴 피드백</li>
+          <li>합격 자소서 레퍼런스 제공</li>
+          <li>당일 납품 가능</li>
+        </ul>
+        <a href="https://open.kakao.com/o/s46uGEIh" target="_blank" class="p-btn">신청하기</a>
+        <div class="delivery-note">⚡ 당일 첨삭 가능</div>
+      </div>
+      <div class="pcard">
+        <div class="p-tier">PREMIUM</div>
+        <div class="p-name">프리미엄</div>
+        <div class="p-price"><sup>₩</sup>129,000</div>
+        <div class="p-range">글자수 제한 없이 모든 문서</div>
+        <ul class="p-feats">
+          <li>이력서 + 자소서 + 포트폴리오 전체</li>
+          <li>글자수 제한 없음</li>
+          <li>직무·기업 맞춤형 전략 피드백</li>
+          <li>납품 일정 협의 후 진행</li>
+        </ul>
+        <a href="https://open.kakao.com/o/s46uGEIh" target="_blank" class="p-btn">신청하기</a>
+      </div>
+    </div>
+    <div class="ent-card">
+      <div>
+        <h3>기관·대학교 취업 특강 의뢰</h3>
+        <p>공공기관·대학교·기업 대상 이력서 작성법, 취업 전략 특강 진행. 맞춤 커리큘럼 설계 가능.</p>
+      </div>
+      <a href="mailto:mktmiru66@gmail.com?subject=[강의 의뢰] 기관명 및 강의 주제 기재" class="ent-btn">이메일로 문의하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ── -->
+<section class="sec sec-light">
+  <div class="wrap">
+    <div class="sec-tag">HOW IT WORKS</div>
+    <h2 class="sec-title">이렇게 진행됩니다</h2>
+    <div class="process-grid">
+      <div class="proc-card">
+        <div class="proc-num">STEP 01</div>
+        <h3>신청 &amp; 접수</h3>
+        <p>카카오톡 채널로 문서 파일과 지원 기업·직무를 함께 보내주세요.</p>
+      </div>
+      <div class="proc-card">
+        <div class="proc-num">STEP 02</div>
+        <h3>현황 진단</h3>
+        <p>지원자의 배경·강점·약점을 분석하고 첨삭 방향을 설정합니다.</p>
+      </div>
+      <div class="proc-card">
+        <div class="proc-num">STEP 03</div>
+        <h3>1:1 첨삭 피드백</h3>
+        <p>문장·구조·키워드를 면접관 시각으로 직접 첨삭해 드립니다.</p>
+      </div>
+      <div class="proc-card">
+        <div class="proc-num">STEP 04</div>
+        <h3>납품 &amp; 후속 답변</h3>
+        <p>스탠다드·디럭스는 당일 납품, 프리미엄은 일정 협의. 추가 질문도 친절히 답변드립니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERT ── -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-tag">ABOUT</div>
+    <h2 class="sec-title">면접관이 직접 봅니다</h2>
+    <div class="expert-wrap">
+      <div class="photo-wrap">
+        <img src="mirru_profile.jpg" alt="미루 MIRRU 프로필 사진" />
+        <div class="photo-badge">마케팅 커리어 컨설턴트</div>
+      </div>
+      <div>
+        <div class="exp-name">미루 MIRRU</div>
+        <div class="exp-title">10년차 현직 마케터 · 면접관</div>
+        <div class="exp-items">
+          <div class="exp-item">
+            <div class="exp-icon">🎓</div>
+            <div>
+              <h4>학력</h4>
+              <p>홍익대학교 광고홍보학과 졸업</p>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-icon">💼</div>
+            <div>
+              <h4>현직</h4>
+              <p>교육 기업 마케터 재직 중 (마케팅 10년차)</p>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-icon">🔄</div>
+            <div>
+              <h4>커리어</h4>
+              <p>5회 이직 경험 — 다양한 업종의 마케팅 실무 보유</p>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-icon">🎯</div>
+            <div>
+              <h4>면접관 경험</h4>
+              <p>신입·경력직 마케터 채용 실무·임원 면접 면접관 다수 참여</p>
+            </div>
+          </div>
+        </div>
+        <div class="uni-bar">
+          <span class="uni-bar-label">출강 대학교</span>
+          <div class="uni-tags">
+            <span class="uni-tag">한양대학교</span>
+            <span class="uni-tag">동국대학교</span>
+            <span class="uni-tag">서강대학교</span>
+            <span class="uni-tag">서울과학기술대학교</span>
+            <span class="uni-tag">강원대학교</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REVIEWS ── -->
+<section class="sec sec-purple">
+  <div class="wrap">
+    <div class="sec-tag">REVIEWS</div>
+    <h2 class="sec-title">실제 수강 후기</h2>
+    <p class="sec-sub">크몽 162건 첨삭 완료 · 만족도 100%</p>
+    <div class="rev-grid">
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"컨설팅을 진짜 자세하게 해주셔서 감사했어요ㅠㅠ 미루님께서 제가 원하는 피드백을 다해주시고 현업에 계신만큼 산업에 대해 자세하게 설명해주셔서 너무 만족스러웠습니다. 겉핥기가 아니라 정성을 다해서 컨설팅해주셔서 너무 감사했습니다! 다음에도 또 찾을게요ㅎㅎ"</p>
+        <div class="rev-meta">크몽 이용자 <span class="rev-badge">크몽 인증</span></div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"빠른 답변, 세심한 피드백, 친절한 대응, 정보가 많지 않아도 옥석을 가려주시는 전문가님! 추천합니다."</p>
+        <div class="rev-meta">크몽 이용자 <span class="rev-badge">크몽 인증</span></div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"커리어 전환으로 이력서 및 경력기술서 첨삭을 부탁드리게 되었는데요, 공고기간이 촉박해 급하게 부탁드렸는데도 정말 빠르게 피드백해주셨어요!"</p>
+        <div class="rev-meta">크몽 이용자 <span class="rev-badge">크몽 인증</span></div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"기존 직무와 연관성을 찾아야하는 점이 어려워서 질문을 많이 드렸는데 매번 상세히 답변해주셨어요. 빠르게 진행되는 상황속에서 정확한 답변, 꼼꼼하고 확실한 첨삭 해주셔서 감사합니다. 리뷰가 좋은 이유가 있었네요,,ㅎㅎ"</p>
+        <div class="rev-meta">크몽 이용자 <span class="rev-badge">크몽 인증</span></div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"응답도 빠르시고 친절하게 최대한 구체적으로 알려주려하시는게 보여서 만족했습니다. 지원 전날 급하게 요청했는데 도움 많이되었습니다!"</p>
+        <div class="rev-meta">크몽 이용자 <span class="rev-badge">크몽 인증</span></div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"덕분에 지원 잘 하고 왔습니다. 다음에 또 첨삭 받을 일이 생기면 찾아올게요~ 감사했습니다! :)"</p>
+        <div class="rev-meta">크몽 이용자 <span class="rev-badge">재구매 고객</span></div>
+      </div>
+      <div class="rev-card" style="grid-column:1/-1;">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"자소서를 쓸때마다 너무 어려워 매번 고민했었는데 이번 첨삭으로 저의 부족한 점을 잘 알게 됐습니다. 피드백도 꼼꼼히 주시고 제가 원하는 방향의 자소서가 나온 것 같아 아주 만족합니다!"</p>
+        <div class="rev-meta">크몽 이용자 <span class="rev-badge">크몽 인증</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="sec" id="contact">
+  <div class="wrap">
+    <div class="sec-tag">CONTACT</div>
+    <h2 class="sec-title">문의하기</h2>
+    <div class="contact-wrap">
+      <div>
+        <p class="contact-desc">강의 의뢰나 기타 문의는 아래 폼으로 남겨주세요.<br>빠르게 확인 후 답변드리겠습니다.</p>
+        <form class="cform" id="contactForm">
+          <div class="fg">
+            <label for="fname">이름 *</label>
+            <input type="text" id="fname" placeholder="홍길동" required />
+          </div>
+          <div class="fg">
+            <label for="femail">이메일 *</label>
+            <input type="email" id="femail" placeholder="example@email.com" required />
+          </div>
+          <div class="fg">
+            <label for="ftype">문의 유형</label>
+            <select id="ftype">
+              <option value="">선택해주세요</option>
+              <option>개인 첨삭 문의</option>
+              <option>기관·대학 강의 의뢰</option>
+              <option>기타 문의</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label for="fmsg">문의 내용 *</label>
+            <textarea id="fmsg" placeholder="문의 내용을 자유롭게 적어주세요." required></textarea>
+          </div>
+          <button type="submit" class="f-submit">이메일로 문의 보내기</button>
+        </form>
+      </div>
+      <div class="kakao-box">
+        <div class="k-emoji">💬</div>
+        <h3>빠른 상담은<br>카카오톡으로</h3>
+        <p>개인 첨삭 신청 및 상담은<br>카카오 오픈채팅으로 바로 연결됩니다.<br><br>⚡ 당일 첨삭도 가능합니다.</p>
+        <a href="https://open.kakao.com/o/s46uGEIh" target="_blank" class="k-btn">카카오톡 채널 바로가기 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── */
+<footer>
+  <p><strong>MIRRU</strong> — 10년차 현직 마케터 · 면접관 자소서 첨삭</p>
+  <p style="margin-top:8px;">📧 <a href="mailto:mktmiru66@gmail.com">mktmiru66@gmail.com</a></p>
+  <p style="margin-top:20px;font-size:12px;">© 2025 MIRRU. All rights reserved.</p>
+</footer>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name  = document.getElementById('fname').value;
+    const email = document.getElementById('femail').value;
+    const type  = document.getElementById('ftype').value;
+    const msg   = document.getElementById('fmsg').value;
+    const subject = encodeURIComponent('[MIRRU 문의] ' + (type || '문의') + ' - ' + name);
+    const body    = encodeURIComponent('이름: ' + name + '\n이메일: ' + email + '\n유형: ' + type + '\n\n' + msg);
+    window.location.href = 'mailto:mktmiru66@gmail.com?subject=' + subject + '&body=' + body;
+  });
+</script>
+</body>
+</html>
